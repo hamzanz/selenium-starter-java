@@ -4,11 +4,11 @@ A sample starter project setup for selenium automation project in java.
 
 Sample project follows Page Objects design pattern.
 
-###Pre-Requisites
+##Pre-Requisites
 * Java
 * Maven
 
-###Libraries Used
+##Libraries Used
 * Selenium
 * TestNG
 * Allure-Reporting
