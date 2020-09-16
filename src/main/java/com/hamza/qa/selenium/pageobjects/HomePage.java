@@ -1,5 +1,6 @@
 package com.hamza.qa.selenium.pageobjects;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
@@ -24,6 +25,7 @@ public class HomePage {
         PageFactory.initElements(uiDriver, this);
     }
 
+    @Step("Verify user on the page")
     public boolean verifyOnPage(){
         if (uiDriver.getTitle().contains(PAGE_TITLE)) {
             return true;
@@ -32,11 +34,13 @@ public class HomePage {
         }
     }
 
+    @Step("Enter somain search term - {searchDomain}")
     public void enterSearchDomain (String searchDomain) {
         inputSearch.clear();
         inputSearch.sendKeys(searchDomain);
     }
 
+    @Step("Click Domain Search button")
     public void clickDomainSearch () {
         btnSearch.click();
     }

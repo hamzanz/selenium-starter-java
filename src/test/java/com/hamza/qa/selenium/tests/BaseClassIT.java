@@ -21,8 +21,8 @@ public class BaseClassIT extends AbstractBaseClass {
             ITestContext context){
 
         logger.info("Executing Before class...");
-//        initializeTestEnvironment(browser, environment, context);
-        initializeTestEnvironment("FF", "qa", context);
+        initializeTestEnvironment(browser, environment, context);
+//        initializeTestEnvironment("FF", "qa", context);
 
         this.baseUrl = this.config.getProperty(ConfigKeys.BASE_URL);
         uiDriver.get(this.baseUrl);

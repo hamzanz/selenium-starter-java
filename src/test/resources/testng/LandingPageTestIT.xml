@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Device Test Suite">
+<suite name="Sample Test Suite">
 
-
-    <test name="Device Test" preserve-order="true">
+    <test name="Domain Search Test" preserve-order="true">
         <classes>
-            <class name="com.techlabs.divolgo.tests.adminweb.AdminLoginIT">
+            <class name="com.hamza.qa.selenium.tests.LandingPageIT">
                 <methods>
-                    <include name="verifyValidLogin" />
-                    <include name="verifyIncorrectPassword" />
-                    <include name="verifyIncorrectUsername" />
-
+                    <include name="verifyDomainSearch" />
                 </methods>
             </class>
         </classes>

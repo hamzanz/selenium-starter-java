@@ -14,6 +14,10 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
+    <jvm.options>-Dtestng.dtd.http=true</jvm.options>
+    <aspectj.version>1.8.10</aspectj.version>
+    <allure.version>2.13.5</allure.version>
+    <allure.results.directory>target/allure-results</allure.results.directory>
   </properties>
 
   <dependencies>
@@ -44,6 +48,13 @@
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <version>1.2.17</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-testng</artifactId>
+      <version>${allure.version}</version>
+<!--      <scope>test</scope>-->
     </dependency>
 
   </dependencies>
@@ -97,16 +108,23 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>2.22.0</version>
+        <version>3.0.0-M5</version>
         <configuration>
           <suiteXmlFiles>
             <suiteXmlFile>src/test/resources/testng/${specificTest}</suiteXmlFile>
           </suiteXmlFiles>
-
           <argLine>
+            ${jvm.options}
             -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
           </argLine>
         </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+          </dependency>
+        </dependencies>
         <executions>
           <execution>
             <goals>
@@ -117,40 +135,43 @@
         </executions>
       </plugin>
 
-<!--      <plugin>-->
-<!--        <artifactId>maven-resources-plugin</artifactId>-->
-<!--        <version>3.0.2</version>-->
-<!--        <executions>-->
-<!--          <execution>-->
-<!--            <id>copy-resources</id>-->
-<!--            &lt;!&ndash; here the phase you need &ndash;&gt;-->
-<!--            <phase>validate</phase>-->
-<!--            <goals>-->
-<!--              <goal>copy-resources</goal>-->
-<!--            </goals>-->
-<!--            <configuration>-->
-<!--              <outputDirectory>${allure.results.directory}</outputDirectory>-->
-<!--              <resources>-->
-<!--                <resource>-->
-<!--                  <directory>src/test/resources</directory>-->
-<!--                  <includes>-->
-<!--                    <include>environment.xml</include>-->
-<!--                  </includes>-->
-<!--                  <filtering>true</filtering>-->
-<!--                </resource>-->
-<!--              </resources>-->
-<!--            </configuration>-->
-<!--          </execution>-->
-<!--        </executions>-->
-<!--      </plugin>-->
-<!--      <plugin>-->
-<!--        <groupId>org.apache.maven.plugins</groupId>-->
-<!--        <artifactId>maven-compiler-plugin</artifactId>-->
-<!--        <configuration>-->
-<!--          <source>8</source>-->
-<!--          <target>8</target>-->
-<!--        </configuration>-->
-<!--      </plugin>-->
+      <plugin>
+        <groupId>io.qameta.allure</groupId>
+        <artifactId>allure-maven</artifactId>
+        <version>2.8</version>
+        <configuration>
+          <propertiesFilePath>src/test/resources/allure.properties</propertiesFilePath>
+          <reportVersion>${allure.version}</reportVersion>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.2.0</version>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <!-- here the phase you need -->
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${allure.results.directory}</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>src/test/resources</directory>
+                  <includes>
+                    <include>environment.properties</include>
+                  </includes>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
   </build>
 </project>

@@ -12,13 +12,11 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.testng.ITestContext;
 
-import java.util.concurrent.TimeUnit;
 
 
 public abstract class AbstractBaseClass {
 
     protected String workingDir;
-//    protected String baseUrl;
     protected Logger logger;
     protected Environment environment;
     protected Browser browser;
@@ -38,14 +36,11 @@ public abstract class AbstractBaseClass {
      */
     protected void initializeTestEnvironment(String browser, String env, ITestContext context){
         // Test values
-        browser = "chrome";
-
 
         workingDir = System.getProperty("user.dir");
         setEnvironment(env);
         setBrowser(browser);
         this.config = getConfig(this.environment);
-//        this.baseUrl = this.config.getProperty(ConfigKeys.BASE_URL);
 
         launchBrowser();
     }

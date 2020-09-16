@@ -1,5 +1,6 @@
 package com.hamza.qa.selenium.pageobjects;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
@@ -16,12 +17,12 @@ public class DomainSearchResultsPage {
     @FindAll(@FindBy(xpath = "//div[@class='dpp-results']/div/div"))
     private List<WebElement> searchResults;
 
-
     public DomainSearchResultsPage (WebDriver driver) {
         uiDriver = driver;
         PageFactory.initElements(uiDriver, this);
     }
 
+    @Step("Verify domain search results page")
     public boolean verifyOnPage(){
         if (uiDriver.getTitle().contains(PAGE_TITLE)) {
             return true;
@@ -30,6 +31,7 @@ public class DomainSearchResultsPage {
         }
     }
 
+    @Step("Count search results")
     public int getResultsCount() {
         return searchResults.size();
     }
